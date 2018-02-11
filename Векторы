@@ -1,1 +1,36 @@
+#include "stdafx.h"
+#include <iostream>
+#include <sstream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
 
+void init(int * &vector) {
+	cout << "Enter coordinates cherez zapiatuiu:	";
+	string string;
+	char zap;
+	getline(cin, string);
+	istringstream stream(string);
+	if (!(stream >> vector[0] && stream >> zap && zap == ',' && stream >> vector[1])) {
+		cout << "mda uj" << endl;
+		exit(0);
+	}
+}
+void print(int * vector) {
+	cout << vector[0] << "," << vector[1] << endl;
+}
+
+int main() {
+	int n;
+	cout << "enter size vse dela:	";
+	cin >> n;
+	if (n == 0) {
+		cout << "nu i lando";
+		exit(0);
+	}
+	cin.get();
+	int *vector1 = new int[n];
+	int *vector2 = new int[n];
+	init(vector1);
+	print(vector1);
+}
