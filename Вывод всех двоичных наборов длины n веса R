@@ -1,1 +1,74 @@
+#include "stdafx.h"
+#include <iostream>
+#include <sstream>
+#include <cstdlib>
+#include <ctime>
+#include <bitset>
+using namespace std;
 
+int n = 5, R;  // R - кол-во единиц или вес, n - длина последовательности.
+int *nabdop = new int[n];
+
+void print(int * nab, int n) {
+	for (int i = 0; i < n; i++) {
+		cout << nab[i];
+	}
+	cout << endl;
+}
+int vesnab(int * nab, int n) {
+	int sum = 0;
+	for (int i = n - 1; i >= 0; i--) {
+		if (nab[i] == 1) {
+			sum++;
+		}
+	}
+	return sum;
+}
+void null(int * &nab, int n) {
+	for (int i = 0; i < n; i++) {
+		nab[i] = 0;
+	}
+}
+void perepis(int *nab, int *nabdop) {
+	for (int i = n - 1; i >= 0; i--) {
+		nab[i] = nabdop[i];
+	}
+}
+void pognali(int * &nab, int n) {
+	int i = n - 1;
+	for (i; i >= 0; i--) {
+		perepis(nabdop, nab);
+		//cout << "/ dop ="; 
+		//print(nabdop, n);
+		if (nab[i] == 0) { 
+			nab[i] = 1; 
+		}
+		if (vesnab(nab, n) == R) {
+			print(nab, n);
+		}
+		perepis(nab,nabdop);
+		//cout << "/nab =";
+		//print(nab, n);
+	}
+}
+int main() {
+	char zap;
+	int *nab = new int [n];
+	//cin >> n >> zap >> R;
+	// в этом блоке n будет константа
+	int tmp = n;
+	const int n = tmp;
+	// some code
+	//null(nab, n);
+	//print(nab, n);
+	//print(nabdop, n);
+	//cout << "go" <<endl;
+	//pognali(nab, n);
+
+	for (int i = 0; i < 2 ^ n; i++) {
+		bitset<16> bitset = i;
+		if
+		// 'to_string' вернет строку std::string формата '000...0111'
+		cout << "Binary : " << bitset.to_string<char, char_traits<char>, allocator<char> >() << endl;
+	}
+}
