@@ -3,11 +3,12 @@
 using namespace std;
 
 struct complex_t {
-    float real;
-    float imag;
+public:
+    static unsigned int count;
     complex_t() {
         real = 0.0f;
         imag = 0.0f;
+        ++count;
     }
     complex_t add(complex_t other) const { // complex_t * const константный указатель, complex_t const * const константный указатель на константный тип
         complex_t complex;
@@ -15,9 +16,26 @@ struct complex_t {
         complex.imag = this->imag + other.imag;
         return complex;
     }
-    ostream & output(ostream &stream) const {
+    ostream & output(ostream &stream) const { // complex_t * const
         return stream << '(' << this->real << ',' << this->imag << ')' << endl;
     }
+    ~complex_t() {
+
+    }
+    void set_real(float value) {
+        if( value > 0.0f) {
+            real = value;
+        }
+    }
+    void set_imag(float value) {
+        if( value > 0.0f) {
+            imag = value;
+        }
+    }
+private:
+    float real;
+    float imag;
+
 };
 bool read(istream & stream, complex_t & complex) {
     char ch;
@@ -28,12 +46,14 @@ bool read(istream & stream, complex_t & complex) {
     stream >> ch && ch == ',' &&
     stream >> imag &&
     stream>> ch && ch == ')') {
-        complex.real = real;
-        complex.imag = imag;
+        complex.set_real(real);
+        complex.set_imag(imag);
     }
     else {res = false; cout << "An error has occured while reading input data";}
     return res;
 }
+
+unsigned int complex_t::count = 0;
 
 int main() {
     complex_t cm1, cm2, result;
@@ -44,6 +64,7 @@ int main() {
         result = cm1.add(cm2);
         result.output(cout);
     }
+    cout << complex_t::count;
 
 
 }
