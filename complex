@@ -1,0 +1,49 @@
+#include <iostream>
+#include <sstream>
+using namespace std;
+
+struct complex_t {
+    float real;
+    float imag;
+    complex_t() {
+        real = 0.0f;
+        imag = 0.0f;
+    }
+    complex_t add(complex_t other) const { // complex_t * const константный указатель, complex_t const * const константный указатель на константный тип
+        complex_t complex;
+        complex.real = this->real + other.real;
+        complex.imag = this->imag + other.imag;
+        return complex;
+    }
+    ostream & output(ostream &stream) const {
+        return stream << '(' << this->real << ',' << this->imag << ')' << endl;
+    }
+};
+bool read(istream & stream, complex_t & complex) {
+    char ch;
+    bool res = true;
+    float real, imag;
+    if (stream >> ch && ch == '(' &&
+    stream >> real &&
+    stream >> ch && ch == ',' &&
+    stream >> imag &&
+    stream>> ch && ch == ')') {
+        complex.real = real;
+        complex.imag = imag;
+    }
+    else {res = false; cout << "An error has occured while reading input data";}
+    return res;
+}
+
+int main() {
+    complex_t cm1, cm2, result;
+    string string;
+    getline(cin, string);
+    istringstream stream(string);
+    if(read(stream, cm1) && read(stream, cm2)) {
+        result = cm1.add(cm2);
+        result.output(cout);
+    }
+
+
+}
